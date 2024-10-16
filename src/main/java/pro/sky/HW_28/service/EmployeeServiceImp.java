@@ -14,21 +14,21 @@ import java.util.Map;
 public class EmployeeServiceImp  implements EmployeeService{
     private static final int MAX_SIZE = 100;
     Map<String, Employee> employees = new HashMap<>(Map.of(
-            "Ефим Бобров", new Employee("Ефим", "Бобров"),
-            "Тихон Гуляев", new Employee("Тихон", "Гуляев"),
-            "Савели Шашков", new Employee("Савели", "Шашков"),
-            "Остап Николаев", new Employee("Остап", "Николаев"),
-            "Алексей Шаров", new Employee("Алексей", "Шаров"),
-            "Дарья Вишнякова", new Employee("Дарья", "Вишнякова"),
-            "Астра Калашникова", new Employee("Астра", "Калашникова"),
-            "Роксана Беспалова", new Employee("Роксана", "Беспалова"),
-            "Хильда Лазарева", new Employee("Хильда", "Лазарева"),
-            "Дана Уварова", new Employee("Дана", "Уварова")
+            "Ефим Бобров", new Employee("Ефим", "Бобров", 770, 1),
+            "Тихон Гуляев", new Employee("Тихон", "Гуляев", 318, 2),
+            "Савели Шашков", new Employee("Савели", "Шашков", 589, 3),
+            "Остап Николаев", new Employee("Остап", "Николаев", 809, 1),
+            "Алексей Шаров", new Employee("Алексей", "Шаров", 348, 2),
+            "Дарья Вишнякова", new Employee("Дарья", "Вишнякова", 894, 3),
+            "Астра Калашникова", new Employee("Астра", "Калашникова", 496, 1),
+            "Роксана Беспалова", new Employee("Роксана", "Беспалова", 547, 2),
+            "Хильда Лазарева", new Employee("Хильда", "Лазарева", 203, 3),
+            "Дана Уварова", new Employee("Дана", "Уварова", 750, 1)
     ));
 
     @Override
-    public Employee add(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
+    public Employee add(String firstName, String lastName, int salary, int department) {
+        Employee employee = new Employee(firstName, lastName, salary, department);
         if (employees.containsKey(employee.getFullName())) {
             throw new EmployeeAlreadyAddedException();
         }
@@ -40,18 +40,20 @@ public class EmployeeServiceImp  implements EmployeeService{
 
     @Override
     public Employee remove(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employees.containsKey(employee.getFullName())) {
-            return employees.remove(employee.getFullName());
+        var key = (firstName + " " + lastName);
+        if (employees.containsKey(key)) {
+            return employees.remove(key);
         }
-        throw new EmployeeNotFoundExection();
-    }
+
+            throw new EmployeeNotFoundExection();
+        }
+
 
     @Override
     public Employee find(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (employees.containsKey(employee.getFullName())) {
-            return employees.get(employee.getFullName());
+        var key = (firstName + " " + lastName);
+        if (employees.containsKey(key)) {
+            return employees.get(key);
         }
         throw new EmployeeNotFoundExection();
     }
