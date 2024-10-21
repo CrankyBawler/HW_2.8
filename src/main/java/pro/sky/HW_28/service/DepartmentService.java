@@ -13,5 +13,5 @@ public interface DepartmentService {
 
     Collection<Employee> findForDepartment(int departmentId);
 
-    Collection<Employee> findAll();
+    Map<Integer, List<Employee>> allForDepartment();
 }

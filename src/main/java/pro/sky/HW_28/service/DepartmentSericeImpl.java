@@ -50,11 +50,10 @@ public class DepartmentSericeImpl implements DepartmentService {
     }
 
     @Override
-    public Collection<Employee> findAll() {
+    public Map<Integer, List<Employee>> allForDepartment() {
 
         return employeeServiceImp.findAll()
                 .stream()
-                .sorted(groupingBy(Employee::getDepartment))
-                .clone(Collectors.toList);
+                .collect(Collectors.groupingBy(Employee ::getDepartment));
     }
 }
